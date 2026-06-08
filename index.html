@@ -1,551 +1,535 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Controle Lava Jato</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Controle Lava Jato Pro</title>
 
-  <style>
-    * { margin: 0; padding: 0; box-sizing: border-box; font-family: Arial, sans-serif; }
-
-    body { background: #eef4fb; color: #1f2937; }
-
-    header {
-      background: linear-gradient(135deg, #0057ff, #00c2ff);
-      color: white;
-      padding: 28px 16px;
-      text-align: center;
-    }
-
-    .logo {
-      width: 85px; height: 85px; border-radius: 50%;
-      background: white; margin: 0 auto 12px;
-      display: flex; align-items: center; justify-content: center;
-      color: #0057ff; font-size: 34px; font-weight: bold;
-    }
-
-    header h1 { font-size: 28px; }
-    header p { margin-top: 6px; opacity: 0.9; }
-
-    .container { max-width: 1200px; margin: 24px auto; padding: 0 14px; }
-
-    .cards {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
-      gap: 14px;
-      margin-bottom: 22px;
-    }
-
-    .card {
-      background: white;
-      border-radius: 16px;
-      padding: 18px;
-      box-shadow: 0 6px 18px rgba(0,0,0,0.08);
-    }
-
-    .card span { color: #6b7280; font-size: 14px; }
-    .card strong { display: block; margin-top: 8px; font-size: 24px; color: #0057ff; }
-
-    .box {
-      background: white;
-      border-radius: 16px;
-      padding: 20px;
-      box-shadow: 0 6px 18px rgba(0,0,0,0.08);
-      margin-bottom: 22px;
-    }
-
-    .box h2 { margin-bottom: 16px; }
-
-    form, .relatorio-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(210px, 1fr));
-      gap: 13px;
-    }
-
-    input, select {
-      padding: 13px;
-      border: 1px solid #d1d5db;
-      border-radius: 10px;
-      font-size: 15px;
-      width: 100%;
-    }
-
-    button {
-      border: none;
-      border-radius: 10px;
-      padding: 12px;
-      cursor: pointer;
-      font-weight: bold;
-      font-size: 14px;
-    }
-
-    .btn-primary { background: #0057ff; color: white; }
-    .btn-edit { background: #f59e0b; color: white; }
-    .btn-delete { background: #ef4444; color: white; }
-    .btn-whatsapp { background: #22c55e; color: white; }
-    .btn-status { background: #0ea5e9; color: white; }
-    .btn-export { background: #111827; color: white; }
-
-    .filters {
-      display: grid;
-      grid-template-columns: 1fr 220px;
-      gap: 12px;
-      margin-bottom: 15px;
-    }
-
-    table {
-      width: 100%;
-      border-collapse: collapse;
-      min-width: 950px;
-    }
-
-    .table-area { overflow-x: auto; }
-
-    th, td {
-      padding: 12px;
-      border-bottom: 1px solid #e5e7eb;
-      text-align: left;
-      font-size: 14px;
-    }
-
-    th { background: #f9fafb; }
-
-    .placa {
-      font-weight: bold;
-      color: #0057ff;
-      font-size: 15px;
-    }
-
-    .status {
-      padding: 6px 11px;
-      border-radius: 20px;
-      font-size: 12px;
-      font-weight: bold;
-      display: inline-block;
-    }
-
-    .Aguardando { background: #fef3c7; color: #92400e; }
-    .EmLavagem { background: #dbeafe; color: #1d4ed8; }
-    .Finalizado { background: #dcfce7; color: #166534; }
-    .Entregue { background: #e5e7eb; color: #374151; }
-
-    .actions {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 6px;
-    }
-
-    .actions button {
-      padding: 8px 10px;
-      font-size: 12px;
-    }
-
-    .relatorio-resultado {
-      margin-top: 18px;
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
-      gap: 12px;
-    }
-
-    .mini-card {
-      background: #f9fafb;
-      border-radius: 14px;
-      padding: 15px;
-      border: 1px solid #e5e7eb;
-    }
-
-    .mini-card span {
-      color: #6b7280;
-      font-size: 13px;
-    }
-
-    .mini-card strong {
-      display: block;
-      margin-top: 8px;
-      color: #0057ff;
-      font-size: 22px;
-    }
-
-    @media (max-width: 700px) {
-      .filters { grid-template-columns: 1fr; }
-      header h1 { font-size: 23px; }
-    }
-  </style>
+<style>
+:root{--primary:#0057ff}
+*{margin:0;padding:0;box-sizing:border-box;font-family:Arial,sans-serif}
+body{background:#eef4fb;color:#1f2937}
+header{background:linear-gradient(135deg,var(--primary),#00b7ff);color:white;padding:28px 16px;text-align:center}
+.logo{width:80px;height:80px;border-radius:50%;background:white;color:var(--primary);margin:0 auto 12px;display:flex;align-items:center;justify-content:center;font-size:34px}
+.container{max-width:1300px;margin:24px auto;padding:0 14px}
+.tabs{display:flex;gap:10px;flex-wrap:wrap;margin-bottom:20px}
+.tabs button{background:white;color:#111827;border:1px solid #d1d5db}
+.tabs button.active{background:var(--primary);color:white}
+.section{display:none}
+.section.active{display:block}
+.cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:14px;margin-bottom:22px}
+.card,.box,.coluna{background:white;border-radius:16px;padding:18px;box-shadow:0 6px 18px rgba(0,0,0,.08)}
+.card span{font-size:14px;color:#6b7280}
+.card strong{display:block;margin-top:8px;font-size:24px;color:var(--primary)}
+.box{margin-bottom:22px}
+.box h2{margin-bottom:15px}
+form,.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:12px}
+input,select,textarea{padding:13px;border:1px solid #d1d5db;border-radius:10px;font-size:15px;width:100%}
+textarea{min-height:90px;resize:vertical}
+button{border:0;border-radius:10px;padding:11px;cursor:pointer;font-weight:bold}
+.btn{background:var(--primary);color:white}
+.btn-green{background:#22c55e;color:white}
+.btn-red{background:#ef4444;color:white}
+.btn-dark{background:#111827;color:white}
+.btn-gray{background:#e5e7eb;color:#111827}
+.kanban{display:grid;grid-template-columns:repeat(4,1fr);gap:14px}
+.coluna h3{margin-bottom:12px;font-size:16px}
+.veiculo{background:#f9fafb;border:1px solid #e5e7eb;border-radius:14px;padding:13px;margin-bottom:10px}
+.veiculo strong{color:var(--primary);font-size:17px}
+.veiculo p{font-size:13px;margin-top:5px;color:#4b5563}
+.acoes{display:flex;flex-wrap:wrap;gap:6px;margin-top:10px}
+.acoes button{font-size:12px;padding:8px}
+.badge{display:inline-block;margin-top:7px;padding:5px 9px;border-radius:20px;font-size:12px;font-weight:bold}
+.Aguardando{background:#fef3c7;color:#92400e}
+.EmLavagem{background:#dbeafe;color:#1d4ed8}
+.Finalizado{background:#dcfce7;color:#166534}
+.Entregue{background:#e5e7eb;color:#374151}
+.relatorio{display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:12px;margin-top:15px}
+.mini{background:#f9fafb;border:1px solid #e5e7eb;border-radius:14px;padding:14px}
+.mini span{font-size:13px;color:#6b7280}
+.mini strong{display:block;margin-top:7px;color:var(--primary);font-size:21px}
+.servico-item{display:grid;grid-template-columns:1fr 120px auto auto;gap:10px;align-items:center;background:#f9fafb;border:1px solid #e5e7eb;padding:12px;border-radius:12px;margin-bottom:10px}
+@media(max-width:900px){.kanban{grid-template-columns:1fr}.servico-item{grid-template-columns:1fr}.card strong{font-size:22px}}
+</style>
 </head>
 
 <body>
 
 <header>
   <div class="logo">🚗</div>
-  <h1>Controle Lava Jato</h1>
-  <p>Controle veículos, serviços, pagamentos, entregas e relatórios mensais</p>
+  <h1 id="nomeSistema">Controle Lava Jato Pro</h1>
+  <p>Atendimento, histórico, relatórios e painel administrativo</p>
 </header>
 
 <div class="container">
 
-  <div class="cards">
-    <div class="card"><span>Veículos Hoje</span><strong id="totalHoje">0</strong></div>
-    <div class="card"><span>Em Lavagem</span><strong id="totalLavagem">0</strong></div>
-    <div class="card"><span>Finalizados</span><strong id="totalFinalizados">0</strong></div>
-    <div class="card"><span>Total Geral</span><strong id="totalGeral">R$ 0,00</strong></div>
-    <div class="card"><span>Pix</span><strong id="totalPix">R$ 0,00</strong></div>
-    <div class="card"><span>Dinheiro</span><strong id="totalDinheiro">R$ 0,00</strong></div>
-    <div class="card"><span>Cartão</span><strong id="totalCartao">R$ 0,00</strong></div>
-    <div class="card"><span>Pendente</span><strong id="totalPendente">R$ 0,00</strong></div>
+  <div class="tabs">
+    <button class="active" onclick="abrirAba('atendimento', this)">Atendimento</button>
+    <button onclick="abrirAba('historico', this)">Histórico</button>
+    <button onclick="abrirAba('relatorios', this)">Relatórios</button>
+    <button onclick="abrirAba('admin', this)">Administrativo</button>
   </div>
 
-  <div class="box">
-    <h2 id="tituloForm">Novo Veículo</h2>
+  <section id="atendimento" class="section active">
 
-    <form id="formVeiculo">
-      <input type="hidden" id="editIndex">
-
-      <input type="text" id="cliente" placeholder="Nome do cliente" required>
-      <input type="text" id="telefone" placeholder="WhatsApp com DDD" required>
-      <input type="text" id="placa" placeholder="Placa do veículo" required>
-      <input type="text" id="modelo" placeholder="Modelo do veículo" required>
-      <input type="text" id="cor" placeholder="Cor do veículo" required>
-
-      <select id="servico" required>
-        <option value="">Selecione o serviço</option>
-        <option value="Lavagem Simples" data-valor="30">Lavagem Simples - R$30</option>
-        <option value="Lavagem Completa" data-valor="50">Lavagem Completa - R$50</option>
-        <option value="Lavagem de Moto" data-valor="20">Lavagem de Moto - R$20</option>
-        <option value="Higienização Interna" data-valor="120">Higienização Interna - R$120</option>
-        <option value="Polimento" data-valor="150">Polimento - R$150</option>
-        <option value="Outro Serviço" data-valor="">Outro Serviço</option>
-      </select>
-
-      <input type="number" id="valor" placeholder="Valor R$" required>
-
-      <select id="pagamento" required>
-        <option value="">Forma de pagamento</option>
-        <option>Pix</option>
-        <option>Dinheiro</option>
-        <option>Cartão</option>
-        <option>Pendente</option>
-      </select>
-
-      <select id="status" required>
-        <option>Aguardando</option>
-        <option>Em Lavagem</option>
-        <option>Finalizado</option>
-        <option>Entregue</option>
-      </select>
-
-      <button class="btn-primary" type="submit">Salvar Veículo</button>
-    </form>
-  </div>
-
-  <div class="box">
-    <h2>Relatório Mensal</h2>
-
-    <div class="relatorio-grid">
-      <input type="month" id="mesRelatorio">
-      <button class="btn-primary" onclick="gerarRelatorioMensal()">Gerar Relatório</button>
-      <button class="btn-export" onclick="exportarRelatorioCSV()">Exportar Excel/CSV</button>
+    <div class="cards">
+      <div class="card"><span>Veículos do dia</span><strong id="totalDia">0</strong></div>
+      <div class="card"><span>Aguardando</span><strong id="cardAguardando">0</strong></div>
+      <div class="card"><span>Em lavagem</span><strong id="cardLavagem">0</strong></div>
+      <div class="card"><span>Finalizados</span><strong id="cardFinalizados">0</strong></div>
+      <div class="card"><span>Entregues</span><strong id="cardEntregues">0</strong></div>
+      <div class="card"><span>Faturamento do dia</span><strong id="cardTotal">R$ 0,00</strong></div>
     </div>
 
-    <div class="relatorio-resultado">
-      <div class="mini-card"><span>Veículos no mês</span><strong id="relVeiculos">0</strong></div>
-      <div class="mini-card"><span>Pix</span><strong id="relPix">R$ 0,00</strong></div>
-      <div class="mini-card"><span>Dinheiro</span><strong id="relDinheiro">R$ 0,00</strong></div>
-      <div class="mini-card"><span>Cartão</span><strong id="relCartao">R$ 0,00</strong></div>
-      <div class="mini-card"><span>Pendente</span><strong id="relPendente">R$ 0,00</strong></div>
-      <div class="mini-card"><span>Total do mês</span><strong id="relTotal">R$ 0,00</strong></div>
-    </div>
-  </div>
-
-  <div class="box">
-    <h2>Veículos Cadastrados</h2>
-
-    <div class="filters">
-      <input type="text" id="busca" placeholder="Buscar por cliente, placa ou telefone">
-      <select id="filtroStatus">
-        <option value="">Todos os status</option>
-        <option>Aguardando</option>
-        <option>Em Lavagem</option>
-        <option>Finalizado</option>
-        <option>Entregue</option>
-      </select>
+    <div class="box">
+      <h2>Novo Veículo</h2>
+      <form id="form">
+        <input id="cliente" placeholder="Nome do cliente" required>
+        <input id="telefone" placeholder="WhatsApp com DDD" required>
+        <input id="placa" placeholder="Placa" required>
+        <input id="modelo" placeholder="Modelo" required>
+        <input id="cor" placeholder="Cor" required>
+        <select id="servico" required></select>
+        <input id="valor" type="number" placeholder="Valor R$" required>
+        <select id="pagamento" required>
+          <option value="">Pagamento</option>
+          <option>Pix</option>
+          <option>Dinheiro</option>
+          <option>Cartão</option>
+          <option>Pendente</option>
+        </select>
+        <button class="btn" type="submit">Cadastrar Veículo</button>
+      </form>
     </div>
 
-    <div class="table-area">
-      <table>
-        <thead>
-          <tr>
-            <th>Entrada</th>
-            <th>Cliente</th>
-            <th>Telefone</th>
-            <th>Placa</th>
-            <th>Veículo</th>
-            <th>Serviço</th>
-            <th>Valor</th>
-            <th>Pagamento</th>
-            <th>Status</th>
-            <th>Ações</th>
-          </tr>
-        </thead>
-        <tbody id="listaVeiculos"></tbody>
-      </table>
+    <div class="box">
+      <h2>Lavagens do Dia</h2>
+      <div class="grid" style="margin-bottom:15px">
+        <input type="date" id="dataFiltroAtendimento">
+        <input id="buscaAtendimento" placeholder="Buscar placa, cliente ou telefone">
+      </div>
+
+      <div class="kanban">
+        <div class="coluna"><h3>🟡 Aguardando</h3><div id="Aguardando"></div></div>
+        <div class="coluna"><h3>🔵 Em Lavagem</h3><div id="Em Lavagem"></div></div>
+        <div class="coluna"><h3>🟢 Finalizado</h3><div id="Finalizado"></div></div>
+        <div class="coluna"><h3>⚪ Entregue</h3><div id="Entregue"></div></div>
+      </div>
     </div>
-  </div>
+
+  </section>
+
+  <section id="historico" class="section">
+    <div class="box">
+      <h2>Histórico por Data</h2>
+      <div class="grid">
+        <input type="date" id="dataHistorico">
+        <input id="buscaHistorico" placeholder="Buscar no histórico">
+        <button class="btn-dark" onclick="exportarDia()">Exportar Dia</button>
+      </div>
+
+      <div class="relatorio">
+        <div class="mini"><span>Veículos</span><strong id="histVeiculos">0</strong></div>
+        <div class="mini"><span>Pix</span><strong id="histPix">R$ 0,00</strong></div>
+        <div class="mini"><span>Dinheiro</span><strong id="histDinheiro">R$ 0,00</strong></div>
+        <div class="mini"><span>Cartão</span><strong id="histCartao">R$ 0,00</strong></div>
+        <div class="mini"><span>Pendente</span><strong id="histPendente">R$ 0,00</strong></div>
+        <div class="mini"><span>Total</span><strong id="histTotal">R$ 0,00</strong></div>
+      </div>
+
+      <div id="listaHistorico" style="margin-top:18px"></div>
+    </div>
+  </section>
+
+  <section id="relatorios" class="section">
+    <div class="box">
+      <h2>Relatório Mensal</h2>
+      <div class="grid">
+        <input type="month" id="mesRelatorio">
+        <button class="btn" onclick="gerarRelatorioMensal()">Gerar Relatório</button>
+        <button class="btn-dark" onclick="exportarMes()">Exportar Mês</button>
+      </div>
+
+      <div class="relatorio">
+        <div class="mini"><span>Veículos no mês</span><strong id="mesVeiculos">0</strong></div>
+        <div class="mini"><span>Pix</span><strong id="mesPix">R$ 0,00</strong></div>
+        <div class="mini"><span>Dinheiro</span><strong id="mesDinheiro">R$ 0,00</strong></div>
+        <div class="mini"><span>Cartão</span><strong id="mesCartao">R$ 0,00</strong></div>
+        <div class="mini"><span>Pendente</span><strong id="mesPendente">R$ 0,00</strong></div>
+        <div class="mini"><span>Total do mês</span><strong id="mesTotal">R$ 0,00</strong></div>
+      </div>
+    </div>
+  </section>
+
+  <section id="admin" class="section">
+    <div class="box">
+      <h2>Painel Administrativo</h2>
+
+      <div class="grid">
+        <input id="adminNome" placeholder="Nome do lava-jato">
+        <input id="adminCor" type="color">
+        <button class="btn" onclick="salvarConfig()">Salvar Configurações</button>
+      </div>
+    </div>
+
+    <div class="box">
+      <h2>Mensagem Padrão do WhatsApp</h2>
+      <textarea id="adminMensagem"></textarea>
+      <p style="margin-top:8px;color:#6b7280;font-size:14px">
+        Use: {cliente}, {placa}, {modelo}, {servico}, {valor}
+      </p>
+    </div>
+
+    <div class="box">
+      <h2>Serviços e Valores</h2>
+
+      <div id="listaServicos"></div>
+
+      <h3 style="margin:18px 0 10px">Adicionar Novo Serviço</h3>
+      <div class="grid">
+        <input id="novoServicoNome" placeholder="Nome do serviço">
+        <input id="novoServicoValor" type="number" placeholder="Valor">
+        <button class="btn-green" onclick="adicionarServico()">Adicionar Serviço</button>
+      </div>
+    </div>
+  </section>
 
 </div>
 
 <script>
-  let veiculos = JSON.parse(localStorage.getItem("veiculosLavaJato")) || [];
+let veiculos = JSON.parse(localStorage.getItem("lavaJatoProVeiculos")) || [];
 
-  const form = document.getElementById("formVeiculo");
-  const lista = document.getElementById("listaVeiculos");
-  const busca = document.getElementById("busca");
-  const filtroStatus = document.getElementById("filtroStatus");
-  const servico = document.getElementById("servico");
-  const valor = document.getElementById("valor");
+let config = JSON.parse(localStorage.getItem("lavaJatoProConfig")) || {
+  nome: "Controle Lava Jato Pro",
+  cor: "#0057ff",
+  mensagem: "Olá {cliente}, seu veículo {modelo}, placa {placa}, já está pronto para retirada. Serviço: {servico}. Valor: {valor}. Obrigado pela preferência!",
+  servicos: [
+    {nome:"Lavagem Simples", valor:30},
+    {nome:"Lavagem Completa", valor:50},
+    {nome:"Lavagem de Moto", valor:20},
+    {nome:"Higienização Interna", valor:120},
+    {nome:"Polimento", valor:150}
+  ]
+};
 
-  document.getElementById("mesRelatorio").value = new Date().toISOString().slice(0, 7);
+const hoje = new Date().toISOString().slice(0,10);
+document.getElementById("dataFiltroAtendimento").value = hoje;
+document.getElementById("dataHistorico").value = hoje;
+document.getElementById("mesRelatorio").value = new Date().toISOString().slice(0,7);
 
-  servico.addEventListener("change", function() {
-    const option = servico.options[servico.selectedIndex];
-    const valorServico = option.getAttribute("data-valor");
+function abrirAba(id, botao){
+  document.querySelectorAll(".section").forEach(s=>s.classList.remove("active"));
+  document.querySelectorAll(".tabs button").forEach(b=>b.classList.remove("active"));
+  document.getElementById(id).classList.add("active");
+  botao.classList.add("active");
 
-    if (valorServico) {
-      valor.value = valorServico;
-    } else {
-      valor.value = "";
-      valor.focus();
-    }
-  });
-
-  form.addEventListener("submit", function(e) {
-    e.preventDefault();
-
-    const editIndex = document.getElementById("editIndex").value;
-
-    const agora = new Date();
-
-    const veiculo = {
-      cliente: document.getElementById("cliente").value,
-      telefone: document.getElementById("telefone").value,
-      placa: document.getElementById("placa").value.toUpperCase(),
-      modelo: document.getElementById("modelo").value,
-      cor: document.getElementById("cor").value,
-      servico: document.getElementById("servico").value,
-      valor: parseFloat(document.getElementById("valor").value),
-      pagamento: document.getElementById("pagamento").value,
-      status: document.getElementById("status").value,
-      entrada: editIndex === "" ? agora.toLocaleString("pt-BR") : veiculos[editIndex].entrada,
-      dataISO: editIndex === "" ? agora.toISOString() : veiculos[editIndex].dataISO
-    };
-
-    if (editIndex === "") {
-      veiculos.push(veiculo);
-    } else {
-      veiculos[editIndex] = veiculo;
-      document.getElementById("tituloForm").innerText = "Novo Veículo";
-    }
-
-    salvar();
-    form.reset();
-    document.getElementById("editIndex").value = "";
-  });
-
-  busca.addEventListener("input", renderizar);
-  filtroStatus.addEventListener("change", renderizar);
-
-  function salvar() {
-    localStorage.setItem("veiculosLavaJato", JSON.stringify(veiculos));
-    renderizar();
-    gerarRelatorioMensal();
-  }
-
-  function renderizar() {
-    lista.innerHTML = "";
-
-    const textoBusca = busca.value.toLowerCase();
-    const statusSelecionado = filtroStatus.value;
-
-    veiculos.forEach((v, index) => {
-      const correspondeBusca =
-        v.cliente.toLowerCase().includes(textoBusca) ||
-        v.placa.toLowerCase().includes(textoBusca) ||
-        v.telefone.toLowerCase().includes(textoBusca);
-
-      const correspondeStatus =
-        statusSelecionado === "" || v.status === statusSelecionado;
-
-      if (!correspondeBusca || !correspondeStatus) return;
-
-      const tr = document.createElement("tr");
-
-      tr.innerHTML = `
-        <td>${v.entrada}</td>
-        <td>${v.cliente}</td>
-        <td>${v.telefone}</td>
-        <td><span class="placa">${v.placa}</span></td>
-        <td>${v.modelo} - ${v.cor}</td>
-        <td>${v.servico}</td>
-        <td>${formatarMoeda(v.valor)}</td>
-        <td>${v.pagamento}</td>
-        <td><span class="status ${classeStatus(v.status)}">${v.status}</span></td>
-        <td>
-          <div class="actions">
-            <button class="btn-status" onclick="mudarStatus(${index})">Status</button>
-            <button class="btn-whatsapp" onclick="enviarWhatsapp(${index})">WhatsApp</button>
-            <button class="btn-edit" onclick="editarVeiculo(${index})">Editar</button>
-            <button class="btn-delete" onclick="excluirVeiculo(${index})">Excluir</button>
-          </div>
-        </td>
-      `;
-
-      lista.appendChild(tr);
-    });
-
-    atualizarCards();
-  }
-
-  function classeStatus(status) {
-    return status.replace(" ", "");
-  }
-
-  function mudarStatus(index) {
-    const ordem = ["Aguardando", "Em Lavagem", "Finalizado", "Entregue"];
-    const atual = ordem.indexOf(veiculos[index].status);
-    const proximo = (atual + 1) % ordem.length;
-
-    veiculos[index].status = ordem[proximo];
-    salvar();
-  }
-
-  function editarVeiculo(index) {
-    const v = veiculos[index];
-
-    document.getElementById("editIndex").value = index;
-    document.getElementById("cliente").value = v.cliente;
-    document.getElementById("telefone").value = v.telefone;
-    document.getElementById("placa").value = v.placa;
-    document.getElementById("modelo").value = v.modelo;
-    document.getElementById("cor").value = v.cor;
-    document.getElementById("servico").value = v.servico;
-    document.getElementById("valor").value = v.valor;
-    document.getElementById("pagamento").value = v.pagamento;
-    document.getElementById("status").value = v.status;
-
-    document.getElementById("tituloForm").innerText = "Editar Veículo";
-    window.scrollTo({ top: 300, behavior: "smooth" });
-  }
-
-  function excluirVeiculo(index) {
-    if (confirm("Deseja excluir este veículo?")) {
-      veiculos.splice(index, 1);
-      salvar();
-    }
-  }
-
-  function enviarWhatsapp(index) {
-    const v = veiculos[index];
-
-    let numero = v.telefone.replace(/\D/g, "");
-
-    if (!numero.startsWith("55")) {
-      numero = "55" + numero;
-    }
-
-    const mensagem =
-      `Olá ${v.cliente}, tudo bem?\n\n` +
-      `Seu veículo ${v.modelo}, placa ${v.placa}, já está pronto para retirada.\n\n` +
-      `Serviço realizado: ${v.servico}\n` +
-      `Valor: ${formatarMoeda(v.valor)}\n\n` +
-      `Obrigado pela preferência!`;
-
-    const url = `https://wa.me/${numero}?text=${encodeURIComponent(mensagem)}`;
-    window.open(url, "_blank");
-  }
-
-  function atualizarCards() {
-    document.getElementById("totalHoje").innerText = veiculos.length;
-
-    document.getElementById("totalLavagem").innerText =
-      veiculos.filter(v => v.status === "Em Lavagem").length;
-
-    document.getElementById("totalFinalizados").innerText =
-      veiculos.filter(v => v.status === "Finalizado" || v.status === "Entregue").length;
-
-    document.getElementById("totalPix").innerText = formatarMoeda(somarPorPagamento("Pix", veiculos));
-    document.getElementById("totalDinheiro").innerText = formatarMoeda(somarPorPagamento("Dinheiro", veiculos));
-    document.getElementById("totalCartao").innerText = formatarMoeda(somarPorPagamento("Cartão", veiculos));
-    document.getElementById("totalPendente").innerText = formatarMoeda(somarPorPagamento("Pendente", veiculos));
-
-    const totalGeral = veiculos.reduce((soma, v) => soma + v.valor, 0);
-    document.getElementById("totalGeral").innerText = formatarMoeda(totalGeral);
-  }
-
-  function gerarRelatorioMensal() {
-    const mesSelecionado = document.getElementById("mesRelatorio").value;
-
-    const veiculosMes = veiculos.filter(v => {
-      if (!v.dataISO) return false;
-      return v.dataISO.slice(0, 7) === mesSelecionado;
-    });
-
-    const totalPix = somarPorPagamento("Pix", veiculosMes);
-    const totalDinheiro = somarPorPagamento("Dinheiro", veiculosMes);
-    const totalCartao = somarPorPagamento("Cartão", veiculosMes);
-    const totalPendente = somarPorPagamento("Pendente", veiculosMes);
-    const totalMes = veiculosMes.reduce((soma, v) => soma + v.valor, 0);
-
-    document.getElementById("relVeiculos").innerText = veiculosMes.length;
-    document.getElementById("relPix").innerText = formatarMoeda(totalPix);
-    document.getElementById("relDinheiro").innerText = formatarMoeda(totalDinheiro);
-    document.getElementById("relCartao").innerText = formatarMoeda(totalCartao);
-    document.getElementById("relPendente").innerText = formatarMoeda(totalPendente);
-    document.getElementById("relTotal").innerText = formatarMoeda(totalMes);
-  }
-
-  function exportarRelatorioCSV() {
-    const mesSelecionado = document.getElementById("mesRelatorio").value;
-
-    const veiculosMes = veiculos.filter(v => {
-      if (!v.dataISO) return false;
-      return v.dataISO.slice(0, 7) === mesSelecionado;
-    });
-
-    if (veiculosMes.length === 0) {
-      alert("Não há veículos cadastrados neste mês.");
-      return;
-    }
-
-    let csv = "Entrada;Cliente;Telefone;Placa;Modelo;Cor;Serviço;Valor;Pagamento;Status\n";
-
-    veiculosMes.forEach(v => {
-      csv += `${v.entrada};${v.cliente};${v.telefone};${v.placa};${v.modelo};${v.cor};${v.servico};${v.valor};${v.pagamento};${v.status}\n`;
-    });
-
-    const blob = new Blob(["\uFEFF" + csv], { type: "text/csv;charset=utf-8;" });
-    const link = document.createElement("a");
-
-    link.href = URL.createObjectURL(blob);
-    link.download = `relatorio-lava-jato-${mesSelecionado}.csv`;
-    link.click();
-  }
-
-  function somarPorPagamento(tipo, lista) {
-    return lista
-      .filter(v => v.pagamento === tipo)
-      .reduce((soma, v) => soma + v.valor, 0);
-  }
-
-  function formatarMoeda(valor) {
-    return valor.toLocaleString("pt-BR", {
-      style: "currency",
-      currency: "BRL"
-    });
-  }
-
-  document.getElementById("mesRelatorio").addEventListener("change", gerarRelatorioMensal);
-
-  renderizar();
+  render();
+  renderHistorico();
   gerarRelatorioMensal();
+}
+
+function aplicarConfig(){
+  document.documentElement.style.setProperty("--primary", config.cor);
+  document.getElementById("nomeSistema").innerText = config.nome;
+  document.getElementById("adminNome").value = config.nome;
+  document.getElementById("adminCor").value = config.cor;
+  document.getElementById("adminMensagem").value = config.mensagem;
+  renderizarServicosSelect();
+  renderizarServicosAdmin();
+}
+
+function salvarConfig(){
+  config.nome = document.getElementById("adminNome").value || "Controle Lava Jato Pro";
+  config.cor = document.getElementById("adminCor").value;
+  config.mensagem = document.getElementById("adminMensagem").value;
+  salvarConfigStorage();
+  aplicarConfig();
+  alert("Configurações salvas!");
+}
+
+function salvarConfigStorage(){
+  localStorage.setItem("lavaJatoProConfig", JSON.stringify(config));
+}
+
+function renderizarServicosSelect(){
+  const select = document.getElementById("servico");
+  select.innerHTML = '<option value="">Serviço</option>';
+
+  config.servicos.forEach(s=>{
+    select.innerHTML += `<option value="${s.nome}" data-valor="${s.valor}">${s.nome} - ${moeda(s.valor)}</option>`;
+  });
+
+  select.innerHTML += `<option value="Outro Serviço" data-valor="">Outro Serviço</option>`;
+}
+
+function renderizarServicosAdmin(){
+  const lista = document.getElementById("listaServicos");
+  lista.innerHTML = "";
+
+  config.servicos.forEach((s,index)=>{
+    const div = document.createElement("div");
+    div.className = "servico-item";
+
+    div.innerHTML = `
+      <input value="${s.nome}" id="servNome${index}">
+      <input type="number" value="${s.valor}" id="servValor${index}">
+      <button class="btn" onclick="editarServico(${index})">Salvar</button>
+      <button class="btn-red" onclick="removerServico(${index})">Excluir</button>
+    `;
+
+    lista.appendChild(div);
+  });
+}
+
+function editarServico(index){
+  config.servicos[index].nome = document.getElementById("servNome"+index).value;
+  config.servicos[index].valor = Number(document.getElementById("servValor"+index).value);
+  salvarConfigStorage();
+  aplicarConfig();
+}
+
+function removerServico(index){
+  if(confirm("Deseja remover este serviço?")){
+    config.servicos.splice(index,1);
+    salvarConfigStorage();
+    aplicarConfig();
+  }
+}
+
+function adicionarServico(){
+  const nome = document.getElementById("novoServicoNome").value;
+  const valor = Number(document.getElementById("novoServicoValor").value);
+
+  if(!nome || !valor){
+    alert("Preencha o nome e o valor do serviço.");
+    return;
+  }
+
+  config.servicos.push({nome, valor});
+  document.getElementById("novoServicoNome").value = "";
+  document.getElementById("novoServicoValor").value = "";
+  salvarConfigStorage();
+  aplicarConfig();
+}
+
+document.getElementById("servico").addEventListener("change", function(){
+  const valor = this.options[this.selectedIndex].dataset.valor;
+  document.getElementById("valor").value = valor || "";
+});
+
+document.getElementById("form").addEventListener("submit", function(e){
+  e.preventDefault();
+
+  const dataSelecionada = document.getElementById("dataFiltroAtendimento").value || hoje;
+
+  const novo = {
+    id: Date.now(),
+    cliente: cliente.value,
+    telefone: telefone.value,
+    placa: placa.value.toUpperCase(),
+    modelo: modelo.value,
+    cor: cor.value,
+    servico: servico.value,
+    valor: Number(valor.value),
+    pagamento: pagamento.value,
+    status: "Aguardando",
+    data: dataSelecionada,
+    entrada: new Date().toLocaleString("pt-BR")
+  };
+
+  veiculos.push(novo);
+  salvarVeiculos();
+  this.reset();
+});
+
+function salvarVeiculos(){
+  localStorage.setItem("lavaJatoProVeiculos", JSON.stringify(veiculos));
+  render();
+  renderHistorico();
+  gerarRelatorioMensal();
+}
+
+document.getElementById("dataFiltroAtendimento").addEventListener("change", render);
+document.getElementById("buscaAtendimento").addEventListener("input", render);
+document.getElementById("dataHistorico").addEventListener("change", renderHistorico);
+document.getElementById("buscaHistorico").addEventListener("input", renderHistorico);
+document.getElementById("mesRelatorio").addEventListener("change", gerarRelatorioMensal);
+
+function render(){
+  ["Aguardando","Em Lavagem","Finalizado","Entregue"].forEach(s=>{
+    document.getElementById(s).innerHTML = "";
+  });
+
+  const data = document.getElementById("dataFiltroAtendimento").value;
+  const texto = document.getElementById("buscaAtendimento").value.toLowerCase();
+
+  const filtrados = veiculos.filter(v =>
+    v.data === data &&
+    (
+      v.cliente.toLowerCase().includes(texto) ||
+      v.placa.toLowerCase().includes(texto) ||
+      v.telefone.toLowerCase().includes(texto)
+    )
+  );
+
+  filtrados.forEach(v=>{
+    const div = criarCardVeiculo(v);
+    document.getElementById(v.status).appendChild(div);
+  });
+
+  atualizarResumoDia(filtrados);
+}
+
+function criarCardVeiculo(v){
+  const div = document.createElement("div");
+  div.className = "veiculo";
+
+  div.innerHTML = `
+    <strong>${v.placa}</strong>
+    <p>${v.cliente} - ${v.telefone}</p>
+    <p>${v.modelo} ${v.cor}</p>
+    <p>${v.servico} - ${moeda(v.valor)}</p>
+    <p>Pagamento: ${v.pagamento}</p>
+    <p>Entrada: ${v.entrada}</p>
+    <span class="badge ${classe(v.status)}">${v.status}</span>
+
+    <div class="acoes">
+      <button class="btn" onclick="proximoStatus(${v.id})">Avançar</button>
+      <button class="btn-green" onclick="whatsapp(${v.id})">WhatsApp</button>
+      <button class="btn-red" onclick="excluir(${v.id})">Excluir</button>
+    </div>
+  `;
+
+  return div;
+}
+
+function renderHistorico(){
+  const data = document.getElementById("dataHistorico").value;
+  const texto = document.getElementById("buscaHistorico").value.toLowerCase();
+
+  const lista = veiculos.filter(v =>
+    v.data === data &&
+    (
+      v.cliente.toLowerCase().includes(texto) ||
+      v.placa.toLowerCase().includes(texto) ||
+      v.telefone.toLowerCase().includes(texto)
+    )
+  );
+
+  const box = document.getElementById("listaHistorico");
+  box.innerHTML = "";
+
+  lista.forEach(v=>{
+    box.appendChild(criarCardVeiculo(v));
+  });
+
+  document.getElementById("histVeiculos").innerText = lista.length;
+  document.getElementById("histPix").innerText = moeda(soma(lista,"Pix"));
+  document.getElementById("histDinheiro").innerText = moeda(soma(lista,"Dinheiro"));
+  document.getElementById("histCartao").innerText = moeda(soma(lista,"Cartão"));
+  document.getElementById("histPendente").innerText = moeda(soma(lista,"Pendente"));
+  document.getElementById("histTotal").innerText = moeda(lista.reduce((s,v)=>s+v.valor,0));
+}
+
+function gerarRelatorioMensal(){
+  const mes = document.getElementById("mesRelatorio").value;
+
+  const lista = veiculos.filter(v => v.data.slice(0,7) === mes);
+
+  document.getElementById("mesVeiculos").innerText = lista.length;
+  document.getElementById("mesPix").innerText = moeda(soma(lista,"Pix"));
+  document.getElementById("mesDinheiro").innerText = moeda(soma(lista,"Dinheiro"));
+  document.getElementById("mesCartao").innerText = moeda(soma(lista,"Cartão"));
+  document.getElementById("mesPendente").innerText = moeda(soma(lista,"Pendente"));
+  document.getElementById("mesTotal").innerText = moeda(lista.reduce((s,v)=>s+v.valor,0));
+}
+
+function atualizarResumoDia(lista){
+  totalDia.innerText = lista.length;
+  cardAguardando.innerText = lista.filter(v=>v.status==="Aguardando").length;
+  cardLavagem.innerText = lista.filter(v=>v.status==="Em Lavagem").length;
+  cardFinalizados.innerText = lista.filter(v=>v.status==="Finalizado").length;
+  cardEntregues.innerText = lista.filter(v=>v.status==="Entregue").length;
+  cardTotal.innerText = moeda(lista.reduce((s,v)=>s+v.valor,0));
+}
+
+function proximoStatus(id){
+  const ordem = ["Aguardando","Em Lavagem","Finalizado","Entregue"];
+  const v = veiculos.find(x => x.id === id);
+  const atual = ordem.indexOf(v.status);
+  v.status = ordem[(atual + 1) % ordem.length];
+  salvarVeiculos();
+}
+
+function excluir(id){
+  if(confirm("Deseja excluir este veículo?")){
+    veiculos = veiculos.filter(v => v.id !== id);
+    salvarVeiculos();
+  }
+}
+
+function whatsapp(id){
+  const v = veiculos.find(x => x.id === id);
+  let numero = v.telefone.replace(/\D/g,"");
+  if(!numero.startsWith("55")) numero = "55" + numero;
+
+  let msg = config.mensagem
+    .replaceAll("{cliente}", v.cliente)
+    .replaceAll("{placa}", v.placa)
+    .replaceAll("{modelo}", v.modelo)
+    .replaceAll("{servico}", v.servico)
+    .replaceAll("{valor}", moeda(v.valor));
+
+  window.open(`https://wa.me/${numero}?text=${encodeURIComponent(msg)}`, "_blank");
+}
+
+function exportarDia(){
+  const data = document.getElementById("dataHistorico").value;
+  const lista = veiculos.filter(v=>v.data===data);
+  exportarCSV(lista, `relatorio-dia-${data}.csv`);
+}
+
+function exportarMes(){
+  const mes = document.getElementById("mesRelatorio").value;
+  const lista = veiculos.filter(v=>v.data.slice(0,7)===mes);
+  exportarCSV(lista, `relatorio-mes-${mes}.csv`);
+}
+
+function exportarCSV(lista, nomeArquivo){
+  if(lista.length === 0){
+    alert("Não há dados para exportar.");
+    return;
+  }
+
+  let csv = "Data;Entrada;Cliente;Telefone;Placa;Modelo;Cor;Serviço;Valor;Pagamento;Status\n";
+
+  lista.forEach(v=>{
+    csv += `${v.data};${v.entrada};${v.cliente};${v.telefone};${v.placa};${v.modelo};${v.cor};${v.servico};${v.valor};${v.pagamento};${v.status}\n`;
+  });
+
+  const blob = new Blob(["\uFEFF"+csv],{type:"text/csv;charset=utf-8;"});
+  const link = document.createElement("a");
+  link.href = URL.createObjectURL(blob);
+  link.download = nomeArquivo;
+  link.click();
+}
+
+function soma(lista,tipo){
+  return lista.filter(v=>v.pagamento===tipo).reduce((s,v)=>s+v.valor,0);
+}
+
+function moeda(v){
+  return Number(v || 0).toLocaleString("pt-BR",{style:"currency",currency:"BRL"});
+}
+
+function classe(status){
+  return status.replace(" ","");
+}
+
+aplicarConfig();
+render();
+renderHistorico();
+gerarRelatorioMensal();
 </script>
 
 </body>
